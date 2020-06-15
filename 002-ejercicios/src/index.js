@@ -48,8 +48,10 @@ const helpersLocal = {
 // ALUMNO 2
 // ...
 
-console.log(helpers.getAllInfoAlumnos());
+//console.log(helpers.getAllInfoAlumnos());
 
 // 12) Implementar una función que guarde la calificación de un alumno y una materia
 //     La función recibirá: 'nombre del alumno', 'nombre de la materia', 'nota'
 //     Si el alumno y/o la materia no existen deberán crearlos en sus respectivas tablas
+
+helpers.addAlumnoAndMateria('Rigoberto Manchu','asd',8);

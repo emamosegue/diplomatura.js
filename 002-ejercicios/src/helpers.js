@@ -10,11 +10,11 @@ function getMaxIdFromTable(table){
   return maxId;
 }
 
-function addItemByTable(itemName, table){
+function addItemByTable(itemName, tableName){
     let newItem = new Object();
-    newItem.id = helpers.getMaxId(table)+1;
+    newItem.id = helpers.getMaxId(tableName)+1;
     newItem.nombre = itemName;
-    database[table].push(newItem);
+    database[tableName].push(newItem);
     return newItem.id;
   }
 
@@ -29,8 +29,40 @@ function getInfoByMateriaPrivate(idMateria){
 }
 
 function getInfoAlumnosPrivate(){
+  let ret = 'NOTAS DE ALUMNOS\n'+
+  '----------------\n';
+  for (let i =0;i<database.alumnos.length;i++){
+    ret += database.alumnos[i].nombre.toUpperCase() + '\n';
+    for (let j =0;j<database.alumnos.length;j++){
+      if (database.calificaciones[j].alumno === database.alumnos[i].id){
+        ret += database.materias.find( materia => materia.id === database.calificaciones[j].materia).nombre + ':' + database.calificaciones[j].nota + '\n';
+      }
+    }
+  }
+  return ret;  
+}
 
-  database.alumnos.map( )
+function addAlumnoAndMateriaPrivate(alumnoN,materiaN,nota){
+  let newItem = '';
+  let msj = '';
+  if (!database.alumnos.find(alumnoTable => alumnoTable.nombre === alumnoN)){
+    console.log('Alumno no encontrado, se agrega a la tabla con ID: ' + addItemByTable(alumnoN,'alumnos'));
+  }
+  if (!database.materias.find(materiaTable => materiaTable.nombre === materiaN)){
+    console.log('Materia no encontrada, se agrega a la tabla con ID: ' + addItemByTable(materiaN,'materias'));
+  }
+  newItem = {
+    alumno : database.alumnos.find( alumnoTable => alumnoTable.nombre === alumnoN).id,
+    materia : database.materias.find( materiaTable => materiaTable.nombre === materiaN).id,
+    nota : nota
+  }
+  if (database.calificaciones.push(newItem)){
+    msj += 'Se agrega la calificacion exitosamente!';
+  }
+  else{
+    msj += 'Ha ocurrido un error al agregar la calificacion';
+  }
+  console.log(msj);
 }
 
 export const helpers = {
@@ -38,7 +70,8 @@ export const helpers = {
   getProfesorById : (idProfesor) => getItemById(database.profesores,idProfesor),
   getMateriaById : (idMateria) => getItemById(database.materias,idMateria),
   getMaxId : (tableName) => getMaxIdFromTable(getTableByNombre(tableName)),
-  addItem : (itemName, table) => addItemByTable(itemName, table),
+  addItem : (itemName, tableName) => addItemByTable(itemName, tableName),
   getInfoByMateria : (idMateria) => getInfoByMateriaPrivate(idMateria),
   getAllInfoAlumnos : () =>  getInfoAlumnosPrivate(),
+  addAlumnoAndMateria : (nombreAlumno, nombreMateria, notaMateria) => addAlumnoAndMateriaPrivate(nombreAlumno, nombreMateria, notaMateria),
 };
