@@ -1,0 +1,46 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+#botonera {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#tabla {
+  padding: 5vw;
+}
+
+.btn-outline-danger {
+  padding: 3px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.btn-outline-info {
+  padding: 3px;
+}
+
+#form-row {
+  text-align: center;
+}
+
+.mainView {
+  margin-top: 30px;
+  margin-left: 40px;
+}
+
+.btn-success {
+  padding: 5px;
+  width: 4vw;
+  height: 2vw;
+}
