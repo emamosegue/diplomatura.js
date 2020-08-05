@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import ListadoAlumnos from "./component/ListadoAlumnos";
+import ListadoCalificaciones from "./component/ListadoCalificaciones";
 
 class App extends React.Component {
   constructor(props) {
@@ -16,8 +17,9 @@ class App extends React.Component {
   }
 
   mostrarVista() {
-    if (this.state.vistaActual === "alumnos")
-      return <ListadoAlumnos appVista={this.setVistaActual()} />;
+    if (this.state.vistaActual === "alumnos") return <ListadoAlumnos />;
+    if (this.state.vistaActual === "calificaciones")
+      return <ListadoCalificaciones />;
   }
 
   render() {

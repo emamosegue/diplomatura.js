@@ -1,22 +1,13 @@
 import React, { Component } from "react";
-import datos from "../datos/index";
 
 export default class DetalleAlumno extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      alumnos: datos.alumnos,
-    };
-  }
-
-  buscarAlumno(idAlumno) {
-    return this.state.alumnos.find((alumno) => alumno.id === idAlumno);
+    this.state = {};
   }
 
   render() {
-    const alumno = this.buscarAlumno(this.props.idSeleccionado);
-    if (alumno) {
-    }
+    const alumno = this.props.alumno;
     return (
       <div className="alert alert-primary d-flex justify-content-center">
         <div className="row w-100" key={alumno.id}>

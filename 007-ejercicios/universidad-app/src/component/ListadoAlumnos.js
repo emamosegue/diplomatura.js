@@ -8,15 +8,15 @@ export default class ListadoAlumno extends Component {
     super(props);
     this.state = {
       vistaActual: "lista",
-      idSelected: null,
+      alumnoSeleccionado: null,
       alumnos: datos.alumnos,
     };
   }
 
-  setVistaActual(nuevaVista, idSelected) {
+  setVistaActual(nuevaVista, alumno) {
     const newState = {
       vistaActual: nuevaVista,
-      idSelected: idSelected,
+      alumnoSeleccionado: alumno,
     };
     this.setState(newState);
   }
@@ -46,7 +46,7 @@ export default class ListadoAlumno extends Component {
                 <button
                   type="button"
                   className="btn btn-outline-info"
-                  onClick={() => this.setVistaActual("detalle", element.id)}
+                  onClick={() => this.setVistaActual("detalle", element)}
                 >
                   Ver
                 </button>
@@ -65,10 +65,19 @@ export default class ListadoAlumno extends Component {
     );
   }
 
+  // agregarAlumno(nuevoAlumno) {
+  //   const newId = this.state.alumnos.length + 1;
+  //   nuevoAlumno.id = newId;
+  //   this.state.alumnos.push(nuevoAlumno);
+  //   this.setVistaActual("lista");
+  // }
+  //cuando llamo, tengo que hacerlo this.agregarAlumno.bind(this)
+
   agregarAlumno = (nuevoAlumno) => {
     const newId = this.state.alumnos.length + 1;
     nuevoAlumno.id = newId;
-    this.state.alumnos.push(nuevoAlumno);
+    this.setState({ alumnos: [...this.state.alumnos, nuevoAlumno] });
+    console.log(this.state.alumnos);
     this.setVistaActual("lista");
   };
 
@@ -84,10 +93,7 @@ export default class ListadoAlumno extends Component {
     } else if (this.state.vistaActual === "detalle") {
       return (
         <div>
-          <DetalleAlumno
-            idSeleccionado={this.state.idSelected}
-            appVista={this.props.appVista()}
-          ></DetalleAlumno>{" "}
+          <DetalleAlumno alumno={this.state.alumnoSeleccionado}></DetalleAlumno>{" "}
         </div>
       );
     }
