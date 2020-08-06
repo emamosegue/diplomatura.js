@@ -21,12 +21,6 @@ export default class ListadoAlumno extends Component {
     this.setState(newState);
   }
 
-  delete(alumno) {
-    const index = datos.alumnos.indexOf(alumno);
-    if (index > -1) datos.alumnos.splice(index, 1);
-    this.setVistaActual("lista");
-  }
-
   getListaAlumnos() {
     return (
       <table className="table">
@@ -34,14 +28,16 @@ export default class ListadoAlumno extends Component {
           <tr>
             <th scope="col">#</th>
             <th scope="col">Nombre</th>
+            <th scope="col">Edad</th>
             <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
-          {datos.alumnos.map((element) => (
+          {this.state.alumnos.map((element) => (
             <tr key={element.id}>
               <td>{element.id}</td>
               <td>{element.nombre}</td>
+              <td>{element.edad}</td>
               <td>
                 <button
                   type="button"
@@ -53,7 +49,7 @@ export default class ListadoAlumno extends Component {
                 <button
                   type="button"
                   className="btn btn-outline-danger"
-                  onClick={() => this.delete(element)}
+                  onClick={() => this.borrarAlumno(element)}
                 >
                   Eliminar
                 </button>
@@ -65,35 +61,31 @@ export default class ListadoAlumno extends Component {
     );
   }
 
-  // agregarAlumno(nuevoAlumno) {
-  //   const newId = this.state.alumnos.length + 1;
-  //   nuevoAlumno.id = newId;
-  //   this.state.alumnos.push(nuevoAlumno);
-  //   this.setVistaActual("lista");
-  // }
-  //cuando llamo, tengo que hacerlo this.agregarAlumno.bind(this)
-
   agregarAlumno = (nuevoAlumno) => {
     const newId = this.state.alumnos.length + 1;
     nuevoAlumno.id = newId;
     this.setState({ alumnos: [...this.state.alumnos, nuevoAlumno] });
-    console.log(this.state.alumnos);
-    this.setVistaActual("lista");
   };
+
+  borrarAlumno(alumno) {
+    const newAlumnos = [...this.state.alumnos];
+    const index = newAlumnos.indexOf(alumno);
+    newAlumnos.splice(index, 1);
+    this.setState({ alumnos: newAlumnos });
+  }
 
   render() {
     if (this.state.vistaActual === "lista") {
-      const ListadoAlumno = this.getListaAlumnos();
       return (
         <div>
           <FormAddAlumno agregarAlumno={this.agregarAlumno} />
-          {ListadoAlumno}
+          {this.getListaAlumnos()}
         </div>
       );
     } else if (this.state.vistaActual === "detalle") {
       return (
         <div>
-          <DetalleAlumno alumno={this.state.alumnoSeleccionado}></DetalleAlumno>{" "}
+          <DetalleAlumno alumno={this.state.alumnoSeleccionado} />
         </div>
       );
     }

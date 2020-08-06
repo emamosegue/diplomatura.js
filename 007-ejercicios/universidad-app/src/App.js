@@ -11,15 +11,19 @@ class App extends React.Component {
     };
   }
 
-  setVistaActual(nuevaVista) {
-    const newState = { vistaActual: nuevaVista };
+  setVistaActual(vistaActual) {
+    const newState = { vistaActual };
     this.setState(newState);
   }
 
   mostrarVista() {
-    if (this.state.vistaActual === "alumnos") return <ListadoAlumnos />;
-    if (this.state.vistaActual === "calificaciones")
-      return <ListadoCalificaciones />;
+    return this.state.vistaActual === "alumnos" ? (
+      <ListadoAlumnos />
+    ) : this.state.vistaActual === "calificaciones" ? (
+      <ListadoCalificaciones />
+    ) : (
+      console.log("Aun no implementado")
+    );
   }
 
   render() {
