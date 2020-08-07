@@ -75,6 +75,7 @@ export default class ListadoAlumno extends Component {
   }
 
   render() {
+    console.log(this.state.vistaActual);
     if (this.state.vistaActual === "lista") {
       return (
         <div>

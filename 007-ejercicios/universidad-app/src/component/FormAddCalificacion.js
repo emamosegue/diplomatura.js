@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import datos from "../datos/index";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
 
 export default class Calificaciones extends Component {
   constructor(props) {
@@ -22,30 +24,21 @@ export default class Calificaciones extends Component {
   render() {
     return (
       <div className="form-row">
-        <div class="dropdown">
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            {this.state.alumnos.map((alumno) => (
-              <a class="dropdown-item" href="#">
-                {alumno.nombre}
-              </a>
-            ))}
-          </div>
-        </div>
-        <div class="dropdown">
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            {this.state.materias.map((materia) => (
-              <a class="dropdown-item" href="#">
-                {materia.nombre}
-              </a>
-            ))}
-          </div>
-        </div>
+        <DropdownButton id="dropdown-variants-Secondary" title="Alumno">
+          {this.state.alumnos.map((alumno) => (
+            <Dropdown.Item as="button">{alumno.nombre}</Dropdown.Item>
+          ))}
+        </DropdownButton>
+        <DropdownButton id="dropdown-item-button" title="Materia">
+          {this.state.materias.map((materia) => (
+            <Dropdown.Item as="button">{materia.nombre}</Dropdown.Item>
+          ))}
+        </DropdownButton>
         <div className="col-md-2 mb-3">
           <input
             type="number"
             className="form-control"
             placeholder="Calificacion"
-            value={this.state.edad}
             onChange={this.handleChangeCalificacion.bind(this)}
           ></input>
         </div>
