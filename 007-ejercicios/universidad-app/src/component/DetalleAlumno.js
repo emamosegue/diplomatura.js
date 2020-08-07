@@ -9,8 +9,8 @@ export default class DetalleAlumno extends Component {
   render() {
     const alumno = this.props.alumno;
     return (
-      <div className="alert alert-primary d-flex justify-content-center">
-        <div className="row w-100" key={alumno.id}>
+      <div className="alert alert-primary d-md-inline-flex justify-content-center">
+        <div className="row w-200" key={alumno.id}>
           <div className="col-4">
             <strong className="mr-1">Id: </strong> {alumno.id}
           </div>

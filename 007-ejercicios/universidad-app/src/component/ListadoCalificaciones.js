@@ -1,16 +1,26 @@
 import React, { Component } from "react";
 import datos from "../datos/index";
 import FormAddCalificacion from "./FormAddCalificacion";
+import DetalleCalificacion from "./DetalleCalificacion";
 
 export default class Calificaciones extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      idSelected: null,
+      vistaActual: "lista",
       calificaciones: datos.calificaciones,
+      calificacionSeleccionada: null,
       alumnos: datos.alumnos,
       materias: datos.materias,
     };
+  }
+
+  setVistaActual(nuevaVista, calificacion) {
+    const newState = {
+      vistaActual: nuevaVista,
+      calificacionSeleccionada: calificacion,
+    };
+    this.setState(newState);
   }
 
   getListaCalificaciones() {
@@ -26,7 +36,7 @@ export default class Calificaciones extends Component {
         </thead>
         <tbody>
           {datos.calificaciones.map((calificacion) => (
-            <tr key={calificacion.alumno}>
+            <tr key={calificacion.id}>
               <td>
                 {
                   datos.alumnos.find(
@@ -46,7 +56,7 @@ export default class Calificaciones extends Component {
                 <button
                   type="button"
                   className="btn btn-outline-info"
-                  onClick={() => console.log("ver")}
+                  onClick={() => this.setVistaActual("detalle", calificacion)}
                 >
                   Ver
                 </button>
@@ -66,12 +76,22 @@ export default class Calificaciones extends Component {
   }
 
   render() {
-    const getListaCalificaciones = this.getListaCalificaciones();
-    return (
-      <div>
-        <FormAddCalificacion />
-        {getListaCalificaciones}
-      </div>
-    );
+    const ListaCalificaciones = this.getListaCalificaciones();
+    if (this.state.vistaActual === "lista") {
+      return (
+        <div>
+          <FormAddCalificacion />
+          {ListaCalificaciones}
+        </div>
+      );
+    } else if (this.state.vistaActual === "detalle") {
+      return (
+        <div>
+          <DetalleCalificacion
+            calificacion={this.state.calificacionSeleccionada}
+          />
+        </div>
+      );
+    }
   }
 }
